@@ -42,7 +42,6 @@ echo y | pacstrap /mnt base base-devel linux openssh nano grub os-prober vim net
 
 echo "archlinux" > /mnt/etc/hostname
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
-ln -sf /mnt/usr/share/zoneinfo/America/New_York /mnt/etc/localtime
 
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 echo "LC_COLLATE=C" >> /mnt/etc/locale.conf
@@ -50,6 +49,7 @@ sed -i '/#en_US.UTF-8/s/^#//g' /mnt/etc/locale.gen
 genfstab -U -p /mnt > /mnt/etc/fstab
 
 (
+echo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime;
 echo locale-gen;
 echo hwclock --systohc --localtime;
 echo mkdir /boot/grub;
@@ -65,4 +65,4 @@ echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' fr
 
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /mnt/etc/ssh/sshd_config
 echo "frank   ALL=(ALL:ALL) NOPASSWD:ALL" > /mnt/etc/sudoers.d/frank
-#umount /mnt/boot /mnt
+umount /mnt/boot /mnt
