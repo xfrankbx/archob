@@ -38,7 +38,7 @@ mkdir /mnt/boot
 mount /dev/vda2 /mnt/boot
 
 echo y | pacman -S archlinux-keyring
-echo y | pacstrap /mnt base base-devel linux openssh nano grub os-prober vim networkmanager python3 sudo git bash-completion wget
+echo y | pacstrap /mnt base base-devel linux openssh nano vim grub os-prober networkmanager sudo git python3
 
 echo "archlinux" > /mnt/etc/hostname
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
@@ -63,6 +63,5 @@ echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' ro
 echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' frank;
 ) | arch-chroot /mnt
 
-sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /mnt/etc/ssh/sshd_config
 echo "frank   ALL=(ALL:ALL) NOPASSWD:ALL" > /mnt/etc/sudoers.d/frank
 umount /mnt/boot /mnt
