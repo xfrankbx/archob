@@ -13,7 +13,7 @@ echo "####             Installing reflector                        ###"
 echo "################################################################"
 
 # installing refector to test wich servers are fastest
-sudo pacman -S --noconfirm --needed reflector
+sudo pacman -S --noconfirm --needed reflector pacman-contrib
 
 echo "################################################################"
 echo "####   finding fastest servers be patient for the world      ###"
@@ -30,12 +30,12 @@ echo "################################################################"
 
 cat /etc/pacman.d/mirrorlist
 
-echo "################################################################"
-echo "####              Checking for possible updates             ####"
-echo "################################################################"
+#echo "################################################################"
+#echo "####              Checking for possible updates             ####"
+#echo "################################################################"
 
-sudo pacman -Syu --noconfirm
+#sudo pacman -Syu --noconfirm
 
-echo "################################################################"
-echo "#####         Your system is now up to date                 ####"
-echo "################################################################"
+#echo "################################################################"
+#echo "#####         Your system is now up to date                 ####"
+#echo "################################################################"
