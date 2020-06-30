@@ -2,7 +2,7 @@
 set -e
 
 echo "################################################################"
-echo "###                      Installing fonts                    ###"
+echo "###   Installing fonts"
 echo "################################################################"
 
 
@@ -22,11 +22,11 @@ for font in ${fonts[@]}
 do
   if pacman -Qi $package &> /dev/null; then
     echo "################################################################"
-    echo "###              $package is already installed               ###"
+    echo "###   $font is already installed"
     echo "################################################################"
   else
     echo "################################################################"
-    echo "###                   Installing $package                    ###"
+    echo "###   Installing $font"
     echo "################################################################"
     trizen -S --noconfirm --needed $font
 done

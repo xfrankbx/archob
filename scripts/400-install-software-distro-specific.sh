@@ -13,7 +13,7 @@ set -e
 
 
 echo "################################################################"
-echo "#########   distro specific software installed  ################"
+echo "###   distro specific software installed"
 echo "################################################################"
 
 #Fonts
@@ -80,11 +80,11 @@ do
   else
     if pacman -Qi $package &> /dev/null; then
       echo "################################################################"
-      echo "###           $package is already installed                  ###"
+      echo "###   $package is already installed"
       echo "################################################################"
     else
       echo "################################################################"
-      echo "###                Installing $package                       ###"
+      echo "###   Installing $package"
       echo "################################################################"
       trizen -S --noconfirm --needed $package
     fi
@@ -93,11 +93,11 @@ do
   # Just checking if installation was successful
   if pacman -Qi $package &> /dev/null; then
     echo "################################################################"
-    echo "#########  "$package" has been installed"
+    echo "###   $package has been installed"
     echo "################################################################"
   else
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    echo "!!!!!!!!!  "$package" has NOT been installed"
+    echo "!!!   $package has NOT been installed"
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   fi
 
@@ -105,7 +105,7 @@ done
 
 
 echo "################################################################"
-echo "Display manager being activated"
+echo "###   Display manager being activated"
 echo "################################################################"
 
 sudo systemctl enable lightdm.service
@@ -114,5 +114,5 @@ echo "Reboot and select the proper desktop environment"
 echo "with the gauge symbol or autologin."
 
 echo "################################################################"
-echo "#########   distro specific software installed  ################"
+echo "###   distro specific software installed"
 echo "################################################################"

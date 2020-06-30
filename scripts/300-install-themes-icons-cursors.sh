@@ -33,6 +33,6 @@ sh plank-themes-v3.sh
 sh install-breeze-cursor-theme-v1.sh
 
 echo "################################################################"
-echo "#############  eye candy software  installed   #################"
+echo "###   eye candy software  installed"
 echo "################################################################"
 

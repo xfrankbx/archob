@@ -21,6 +21,6 @@ sudo systemctl start NetworkManager.service
 
 
 echo "################################################################"
-echo "#########   network management software installed  #############"
+echo "###   network management software installed"
 echo "################################################################"
 

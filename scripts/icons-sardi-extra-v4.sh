@@ -58,7 +58,7 @@ echo "Checking presence of lsb-release and install it when missing"
 DISTRO=$(lsb_release -si)
 
 echo "################################################################"
-echo "You are working on " $DISTRO
+echo "###   You are working on " $DISTRO
 echo "################################################################"
 
 
@@ -66,7 +66,7 @@ echo "################################################################"
 ########################                    D E P E N D A N C I E S                     ##########################
 ##################################################################################################################
 
-case $DISTRO in 
+case $DISTRO in
 
 	LinuxMint|linuxmint|Ubuntu|ubuntu)
 
@@ -77,7 +77,7 @@ case $DISTRO in
 		if ! location="$(type -p "git")" || [ -z "git" ]; then
 
 			echo "################################################################"
-			echo "installing git for this script to work"
+			echo "###   installing git for this script to work"
 			echo "################################################################"
 
 		  	sudo apt-get install -y git
@@ -98,28 +98,28 @@ case $DISTRO in
 		if ! location="$(type -p "git")" || [ -z "git" ]; then
 
 			echo "################################################################"
-			echo "installing git for this script to work"
+			echo "###   installing git for this script to work"
 			echo "#################################################################"
 
 		  	sudo pacman -S --noconfirm git
 
 		  else
 		  	echo "################################################################"
-		  	echo "git was installed. Proceeding..."
-
+		  	echo "###   git was installed. Proceeding..."
+		  	echo "################################################################"
 
 		fi
 
 		;;
 
 	Solus)
-	
+
 	# git
 
 		if ! location="$(type -p "git")" || [ -z "git" ]; then
 
 			echo "################################################################"
-			echo "installing git for this script to work"
+			echo "###   installing git for this script to work"
 			echo "################################################################"
 
 		  	sudo eopkg install -y git
@@ -149,5 +149,5 @@ cp -rf /tmp/Sardi-Extra/* ~/.icons/
 
 
 echo "################################################################"
-echo "###################    icons sardi extra done  #################"
+echo "###   icons sardi extra done"
 echo "################################################################"

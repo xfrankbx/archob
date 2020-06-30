@@ -12,7 +12,7 @@ set -e
 # this will install xserver
 
 echo "################################################################"
-echo "###                    Installing Xorg                       ###"
+echo "###   Installing Xorg"
 echo "################################################################"
 
 # This is the opensource driver for FrameBuffer Device"
@@ -20,5 +20,5 @@ sudo pacman -S xorg-server xorg-apps xorg-xinit xorg-twm xterm --noconfirm --nee
 sudo pacman -S xf86-video-fbdev --noconfirm --needed
 
 echo "################################################################"
-echo "###                    xorg installed                        ###"
+echo "###   xorg installed"
 echo "################################################################"

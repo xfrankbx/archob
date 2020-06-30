@@ -12,7 +12,7 @@ set -e
 ##################################################################################################################
 
 echo "################################################################"
-echo "###             Installing core software - standard          ###"
+echo "###   Installing core software - standard"
 echo "################################################################"
 
 software=(
@@ -64,6 +64,7 @@ net-tools
 notify-osd
 numlockx
 vnstat
+termite
 
 *User-Utilities
 bash-completion
@@ -129,11 +130,11 @@ sudo systemctl enable vnstat
 sudo systemctl start vnstat
 
 echo "################################################################"
-echo "###               Installing core software - aur             ###"
+echo "###   Installing core software - aur"
 echo "################################################################"
 
 trizen -S --noconfirm --needed gksu inxi
 
 echo "################################################################"
-echo "###                    core software installed               ###"
+echo "###   core software installed"
 echo "################################################################"
