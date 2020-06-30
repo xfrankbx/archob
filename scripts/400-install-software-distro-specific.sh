@@ -53,7 +53,7 @@ compton
 dmenu
 feh
 gmrun
-lxappearance-obconf
+#lxappearance-obconf
 lxrandr
 obkey-git
 #ob-autostart
@@ -66,7 +66,10 @@ lxinput
 openbox-themes
 playerctl
 tint2
-
+xfce4-clipman-plugin
+xfce4-panel
+xfce4-settings
+xfconf
 
 )
 
