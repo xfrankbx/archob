@@ -25,7 +25,7 @@ package="pasystray-gtk3-standalone"
 if pacman -Qi $package &> /dev/null; then
 
 	echo "################################################################"
-	echo "################## "$package" is already installed"
+	echo "###   $package is already installed"
 	echo "################################################################"
 
 else
@@ -57,7 +57,7 @@ else
 	if pacman -Qi $package &> /dev/null; then
 	
 	echo "################################################################"
-	echo "#########  "$package" has been installed"
+	echo "###   $package has been installed"
 	echo "################################################################"
 
 	else
@@ -79,5 +79,5 @@ fi
 
 
 echo "################################################################"
-echo "#########      pasystray software installed     ################"
+echo "###   pasystray software installed"
 echo "################################################################"

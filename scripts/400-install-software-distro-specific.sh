@@ -60,12 +60,11 @@ obkey-git
 #menumaker
 nitrogen
 obmenu-generator
-openbox-arc-git
-#xfce4-panel
+#openbox-arc-git
 lxinput
 openbox-themes
 playerctl
-tint2
+#tint2
 xfce4-clipman-plugin
 xfce4-panel
 xfce4-settings

@@ -12,7 +12,7 @@ set -e
 # this will install xserver
 
 echo "################################################################"
-echo "###   Installing Xorg"
+echo "###   Installing Xorg with fbdev"
 echo "################################################################"
 
 # This is the opensource driver for FrameBuffer Device"

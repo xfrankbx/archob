@@ -118,7 +118,7 @@ do
     echo "* installing group $name *"
   else
     echo "installing: $name"
-#    trizen -S --noconfirm --needed $name
+    trizen -S --noconfirm --needed $name
   fi
 done
 
