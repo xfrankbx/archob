@@ -193,10 +193,11 @@ zsh-syntax-highlighting
 command-not-found
 
 *Uncategorized-software
-darktable
+#darktable
 dconf-editor
 gpick
-meld mlocate
+meld
+mlocate
 polkit-gnome
 redshift
 #sane
@@ -234,6 +235,7 @@ do
     echo "################################################################"
     echo "###   * installing group $name *"
     echo "################################################################"
+    sleep 2
   else
     echo "####################################################"
     echo "###   installing: $name"
@@ -299,7 +301,7 @@ cp -r /tmp/Plank-Themes/* ~/.local/share/plank/themes/
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 
 
-mkdir -p ~/.ocnfig/openbox
+mkdir -p ~/.config/openbox
 mkdir -p ~/.config/plank/dock1/launchers
 mkdir -p ~/.config/xfce4/xfconf/xfce-perchannel-xml
 
