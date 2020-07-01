@@ -239,7 +239,7 @@ do
     echo "###   installing: $name"
     trizen -S --noconfirm --needed $name
     echo "####################################################"
-    echo "###   $name installed
+    echo "###   $name installed"
     echo "####################################################"
   fi
 done
