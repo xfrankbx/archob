@@ -271,9 +271,9 @@ echo "################################################################"
 
 
 # if there is no hidden folder then make one
-[ -d $HOME"/.icons" ] || mkdir -p $HOME"/.icons"
-[ -d $HOME"/.local/share/plank" ] || mkdir -p $HOME"/.local/share/plank"
-[ -d $HOME"/.local/share/plank/themes" ] || mkdir -p $HOME"/.local/share/plank/themes"
+[ -d "$HOME/.icons" ] || mkdir -p "$HOME/.icons"
+[ -d "$HOME/.local/share/plank" ] || mkdir -p "$HOME/.local/share/plank"
+[ -d "$HOME/.local/share/plank/themes" ] || mkdir -p "$HOME/.local/share/plank/themes"
 
 wget -O /tmp/sardi.tar.gz "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
 mkdir /tmp/sardi
