@@ -269,7 +269,6 @@ echo "################################################################"
 ### Icons/Fonts/Themes
 
 # cleaning tmp
-[ -d /tmp/sardi ] && rm -rf /tmp/sardi
 [ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
 [ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
@@ -280,28 +279,25 @@ echo "################################################################"
 [ -d "$HOME/.local/share/plank" ] || mkdir -p "$HOME/.local/share/plank"
 [ -d "$HOME/.local/share/plank/themes" ] || mkdir -p "$HOME/.local/share/plank/themes"
 
-wget -O /tmp/sardi.tar.gz "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
+wget -O /tmp/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
 mkdir /tmp/sardi
-tar -zxf /tmp/sardi.tar.gz -C /tmp/sardi
-rm /tmp/sardi.tar.gz
-cp -rf /tmp/sardi/* ~/.icons/
+cd ~/.icons
+unzip /tmp/sardi.zip
+rm /tmp/sardi.zip
 
 git clone https://github.com/erikdubois/Sardi-Extra /tmp/Sardi-Extra
 find /tmp/Sardi-Extra -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -rf /tmp/Sardi-Extra/* ~/.icons/
+[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
 
 git clone https://github.com/erikdubois/Surfn /tmp/Surfn
 find /tmp/Surfn -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -rf /tmp/Surfn/* ~/.icons/
+[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
 
 git clone https://github.com/erikdubois/Plank-Themes /tmp/Plank-Themes
 find /tmp/Plank-Themes -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -r /tmp/Plank-Themes/* ~/.local/share/plank/themes/
-
-# cleaning tmp
-[ -d /tmp/sardi ] && rm -rf /tmp/sardi
-[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
-[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 
 
