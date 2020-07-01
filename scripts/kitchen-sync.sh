@@ -245,8 +245,6 @@ do
 done
 
 
-exit
-
 # Enable and start services installed above
 sudo systemctl enable vnstat
 sudo systemctl start vnstat
