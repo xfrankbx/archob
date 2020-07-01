@@ -34,17 +34,22 @@ echo "###   Your system is now up to date"
 echo "################################################################"
 
 
-echo "################################################################"
-echo "###   Installing Trizen"
-echo "################################################################"
+if pacman -Qi trizen &> /dev/null; then
+  echo "################################################################"
+  echo "###   trizen is already installed"
+  echo "################################################################"
+else
+  echo "################################################################"
+  echo "###   Installing trizen"
+  echo "################################################################"
+  sudo pacman -S --noconfirm --needed git fakeroot binutils
+  git clone https://aur.archlinux.org/trizen-git.git /tmp/trizen-git
+  cd /tmp/trizen-git
+  makepkg --noconfirm --needed -si
+fi
 
-sudo pacman -S --noconfirm --needed git fakeroot binutils
-git clone https://aur.archlinux.org/trizen-git.git /tmp/trizen-git
-cd /tmp/trizen-git
-makepkg --noconfirm --needed -si
-
 echo "################################################################"
-echo "###   Trizen installed"
+echo "###   trizen installed"
 echo "################################################################"
 
 echo "################################################################"
