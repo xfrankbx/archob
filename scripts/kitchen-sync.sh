@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+## Rough script, needs a lot of cleaning and organization after I have everything in it I want.
+
 
 # Stop script if we hit an error
 set -e
@@ -162,7 +164,8 @@ notify-osd
 numlockx
 obconf
 openbox
-compton
+#compton
+xcompmgr
 dmenu
 feh
 gmrun
@@ -206,6 +209,11 @@ redshift
 thunar
 tumbler
 unclutter
+rofi-git
+community/yad
+community/xdotool
+community/jq
+aur/polybar
 
 *Themes-icons-cursors
 ttf-font-awesome
@@ -215,15 +223,19 @@ breeze-snow-cursor-theme
 # pacman
 awesome-terminal-fonts
 adobe-source-sans-pro-fonts
-terminus-font
-ttf-ubuntu-font-family
+community/terminus-font
+community/ttf-ubuntu-font-family
 # trizen
 font-manager-git
 ttf-ms-fonts
 urxvt-resize-font-git
 noto-fonts
 ttf-roboto
-
+aur/siji-git
+aur/ttf-material-design-icons-webfont
+community/powerline-fonts
+community/ttf-inconsolata
+extra/ttf-dejavu
 
 )
 
@@ -300,14 +312,55 @@ find /tmp/Plank-Themes -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -r /tmp/Plank-Themes/* ~/.local/share/plank/themes/
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 
-
-mkdir -p ~/.config/openbox
-mkdir -p ~/.config/plank/dock1/launchers
-mkdir -p ~/.config/xfce4/xfconf/xfce-perchannel-xml
+[ -d "$HOME/.config/openbox" ] || mkdir -p "$HOME/.config/openbox"
+[ -d "$HOME/.config/plank/dock1/launchers" ] || mkdir -p "$HOME/.config/plank/dock1/launchers"
+[ -d "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml" ] || mkdir -p "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
+[ -d "$HOME/.config/termite" ] || mkdir -p "$HOME/.config/termite"
 
 cp ../settings/.config/openbox/autostart ~/.config/openbox/
 
 cp ../settings/.config/plank/dock1/launchers/* ~/.config/plank/dock1/launchers/
 cat ../settings/dconf/plank.dconf | dconf load /net/launchpad/plank/docks/dock1/
 
-cp ../settings/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/
+cp ../settings/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/
+
+cp ../settings/.config/termite/config ~/.config/termite/
+
+##########################################################################################
+
+
+mkdir -p ~/.local/share/fonts
+mkdir -p ~/Downloads/fonts
+cd ~/Downloads/fonts
+wget "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold/complete/Iosevka%20Term%20Bold%20Nerd%20Font%20Complete.ttf" -O Iosevka_Term_Bold_Nerd_Font_Complete.ttf
+#wget "https://github.com/stark/siji/raw/master/pcf/siji.pcf" -O siji.pcf
+wget "https://downloads.sourceforge.net/project/termsyn/termsyn-1.8.7.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftermsyn%2Ffiles%2Ftermsyn-1.8.7.tar.gz%2Fdownload&ts=1561132280" -O termsyn-1.8.7.tar.gz
+wget http://unifoundry.com/pub/unifont/unifont-12.1.02/font-builds/unifont-12.1.02.ttf -O unifont-12.1.02.ttf
+wget http://dl.dafont.com/dl/?f=pizzadude_bullets -O pizzadude_bullets.zip
+wget http://dl.dafont.com/dl/?f=openlogos -O openlogos.zip
+wget https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip -O Hack-v3.003-ttf.zip
+
+tar -zxf termsyn-1.8.7.tar.gz
+unzip Hack-v3.003-ttf.zip
+unzip openlogos.zip
+unzip pizzadude_bullets.zip
+chown frank.frank * -R
+#mv siji.pcf ~/.local/share/fonts/
+mv Iosevka_Term_Bold_Nerd_Font_Complete.ttf ~/.local/share/fonts/
+mv termsyn-1.8.7/*.pcf termsyn-1.8.7/*.psfu ~/.local/share/fonts/
+mv *.ttf ~/.local/share/fonts/
+mv ttf/Hack* ~/.local/share/fonts/
+rmdir ttf
+rm -f pizzadudedotdk.txt
+rm -rf termsyn-1.8.7
+fc-cache -v
+
+
+#####################################
+
+
+[ -d "$HOME/.config/rofi" ] || mkdir -p "$HOME/.config/rofi"
+[ -d "$HOME/.config/polybar" ] || mkdir -p "$HOME/.config/polybar"
+
+cp ../settings/.config/rofi/* $HOME/.config/rofi
+cp ../settings/.config/polybar/* $HOME/.config/polybar
