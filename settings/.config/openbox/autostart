@@ -9,6 +9,8 @@ xset b off
 xfsettingsd &
 #(nm-applet) &
 
-(plank) &
+xcompmgr -cfns &
 
+(plank) &
 ~/.config/polybar/polybar.sh &
+
