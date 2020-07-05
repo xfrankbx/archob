@@ -5,6 +5,8 @@
 # Stop script if we hit an error
 set -e
 
+orgpwd=`pwd`
+
 echo "################################################################"
 echo "###   Installing reflector"
 echo "################################################################"
@@ -48,45 +50,72 @@ else
   git clone https://aur.archlinux.org/trizen-git.git /tmp/trizen-git
   cd /tmp/trizen-git
   makepkg --noconfirm --needed -si
+  echo "################################################################"
+  echo "###   trizen installed"
+  echo "################################################################"
 fi
 
-echo "################################################################"
-echo "###   trizen installed"
-echo "################################################################"
 
 echo "################################################################"
 echo "###   Installing Xorg with fbdev"
 echo "################################################################"
 
 # This is the opensource driver for FrameBuffer Device"
-sudo pacman -S xorg-server xorg-apps xorg-xinit xorg-twm xterm --noconfirm --needed
-sudo pacman -S xf86-video-fbdev --noconfirm --needed
+software=(
+xorg-server
+xorg-apps
+xorg-xinit
+xorg-twm
+xterm
+xf86-video-fbdev
+)
 
+for name in ${software[@]}
+do
+  if pacman -Qi $name &> /dev/null; then
+    echo "################################################################"
+    echo "###   $name is already installed"
+    echo "################################################################"
+  else
+    echo "####################################################"
+    echo "###   installing: $name"
+    echo "####################################################"
+    trizen -S --noconfirm --needed $name
+    echo "####################################################"
+    echo "###   $name installed"
+    echo "####################################################"
+  fi
+done
 echo "################################################################"
 echo "###   xorg installed"
 echo "################################################################"
 
+
 echo "################################################################"
-echo "###   Installing core software - standard"
+echo "###   Installing core software"
 echo "################################################################"
 
 software=(
-*Compression
+#*Compression
 #arj
 #cabextract
 #file-roller
 #sharutils
 #unace
 #unrar
-#unzip
+unzip
 #uudeview
 #zip
 
-*System-Info
-archey3
-screenfetch
 
-*Media
+*System-Info
+neofetch
+#archey3
+#screenfetch
+#inxi
+
+
+#*Media
 #clementine
 #mpv
 #openshot
@@ -94,6 +123,7 @@ screenfetch
 #vlc
 #smplayer
 #ristretto
+
 
 *Internet
 #evolution
@@ -104,13 +134,16 @@ firefox
 #transmission-cli
 #transmission-gtk
 
+
 *Networking
 networkmanager
 network-manager-applet
 
+
 *Graphics-Editing
 #gimp
 #inkscape
+
 
 *System-Utilities
 dmidecode
@@ -125,6 +158,7 @@ numlockx
 vnstat
 termite
 
+
 *User-Utilities
 bash-completion
 baobab
@@ -135,20 +169,23 @@ git
 sysstat
 wget
 
-*Screenshots
+
+#*Screenshots
 #gnome-screenshot
 #scrot
+
 
 *Programming-Languages
 python3
 
+
 *Xorg-Misc
 gnome-font-viewer
-galculator
-gnome-disk-utility
-gnome-system-monitor
+#galculator
+#gnome-disk-utility
+#gnome-system-monitor
 #gparted
-variety
+#variety
 plank
 #conky
 grsync
@@ -174,7 +211,7 @@ lxrandr
 obkey-git
 #ob-autostart
 #menumaker
-nitrogen
+#nitrogen
 obmenu-generator
 #openbox-arc-git
 lxinput
@@ -195,6 +232,7 @@ zsh-completions
 zsh-syntax-highlighting
 command-not-found
 
+
 *Uncategorized-software
 #darktable
 dconf-editor
@@ -202,7 +240,7 @@ gpick
 meld
 mlocate
 polkit-gnome
-redshift
+#redshift
 #sane
 #simple-scan
 #simplescreenrecorder
@@ -214,18 +252,14 @@ community/yad
 community/xdotool
 community/jq
 aur/polybar
+gksu
 
-*Themes-icons-cursors
-ttf-font-awesome
-breeze-snow-cursor-theme
 
-*Fonts
-# pacman
+*Fonts-Themes-icons-cursors
 awesome-terminal-fonts
 adobe-source-sans-pro-fonts
 community/terminus-font
 community/ttf-ubuntu-font-family
-# trizen
 font-manager-git
 ttf-ms-fonts
 urxvt-resize-font-git
@@ -236,6 +270,8 @@ aur/ttf-material-design-icons-webfont
 community/powerline-fonts
 community/ttf-inconsolata
 extra/ttf-dejavu
+ttf-font-awesome
+breeze-snow-cursor-theme
 
 )
 
@@ -249,89 +285,81 @@ do
     echo "################################################################"
     sleep 2
   else
-    echo "####################################################"
-    echo "###   installing: $name"
-    trizen -S --noconfirm --needed $name
-    echo "####################################################"
-    echo "###   $name installed"
-    echo "####################################################"
+    if pacman -Qi $name &> /dev/null; then
+      echo "################################################################"
+      echo "###   $name is already installed"
+      echo "################################################################"
+    else
+      echo "####################################################"
+      echo "###   installing: $name"
+      echo "####################################################"
+      trizen -S --noconfirm --needed $name
+      echo "####################################################"
+      echo "###   $name installed"
+      echo "####################################################"
+    fi
   fi
 done
-
-
-# Enable and start services installed above
-sudo systemctl enable vnstat
-sudo systemctl start vnstat
-sudo systemctl enable NetworkManager.service
-sudo systemctl start NetworkManager.service
-sudo systemctl enable lightdm.service
-
-echo "################################################################"
-echo "###   Installing core software - aur"
-echo "################################################################"
-
-trizen -S --noconfirm --needed gksu inxi
 
 echo "################################################################"
 echo "###   core software installed"
 echo "################################################################"
 
 
+# Enable and start services installed above
+sudo systemctl enable vnstat
+sudo systemctl enable NetworkManager.service
+sudo systemctl enable lightdm.service
+
+
+[ -d "$HOME/.icons" ] || mkdir -p "$HOME/.icons"
+[ -d "$HOME/.local/share/fonts" ] || mkdir -p "$HOME/.local/share/fonts"
+[ -d "$HOME/.local/share/plank/themes" ] || mkdir -p "$HOME/.local/share/plank/themes"
+[ -d "$HOME/.config/openbox" ] || mkdir -p "$HOME/.config/openbox"
+[ -d "$HOME/.config/plank/dock1/launchers" ] || mkdir -p "$HOME/.config/plank/dock1/launchers"
+[ -d "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml" ] || mkdir -p "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
+[ -d "$HOME/.config/termite" ] || mkdir -p "$HOME/.config/termite"
+[ -d "$HOME/.config/rofi" ] || mkdir -p "$HOME/.config/rofi"
+[ -d "$HOME/.config/polybar" ] || mkdir -p "$HOME/.config/polybar"
+
 
 ### Icons/Fonts/Themes
 
-# cleaning tmp
-[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
-[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
-[ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
-
 
 # if there is no hidden folder then make one
-[ -d "$HOME/.icons" ] || mkdir -p "$HOME/.icons"
-[ -d "$HOME/.local/share/plank" ] || mkdir -p "$HOME/.local/share/plank"
-[ -d "$HOME/.local/share/plank/themes" ] || mkdir -p "$HOME/.local/share/plank/themes"
 
+[ -d /tmp/sardi ] && rm -rf /tmp/sardi
 wget -O /tmp/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
 mkdir /tmp/sardi
 cd ~/.icons
 unzip /tmp/sardi.zip
 rm /tmp/sardi.zip
+[ -d /tmp/sardi ] && rm -rf /tmp/sardi
 
+[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
 git clone https://github.com/erikdubois/Sardi-Extra /tmp/Sardi-Extra
 find /tmp/Sardi-Extra -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -rf /tmp/Sardi-Extra/* ~/.icons/
 [ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
 
+[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
 git clone https://github.com/erikdubois/Surfn /tmp/Surfn
 find /tmp/Surfn -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -rf /tmp/Surfn/* ~/.icons/
 [ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
 
+[ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 git clone https://github.com/erikdubois/Plank-Themes /tmp/Plank-Themes
 find /tmp/Plank-Themes -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -r /tmp/Plank-Themes/* ~/.local/share/plank/themes/
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 
-[ -d "$HOME/.config/openbox" ] || mkdir -p "$HOME/.config/openbox"
-[ -d "$HOME/.config/plank/dock1/launchers" ] || mkdir -p "$HOME/.config/plank/dock1/launchers"
-[ -d "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml" ] || mkdir -p "$HOME/.config/xfce4/xfconf/xfce-perchannel-xml"
-[ -d "$HOME/.config/termite" ] || mkdir -p "$HOME/.config/termite"
-
-cp ../settings/.config/openbox/autostart ~/.config/openbox/
-
-cp ../settings/.config/plank/dock1/launchers/* ~/.config/plank/dock1/launchers/
-cat ../settings/dconf/plank.dconf | dconf load /net/launchpad/plank/docks/dock1/
-
-cp ../settings/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/
-
-cp ../settings/.config/termite/config ~/.config/termite/
 
 ##########################################################################################
 
 
-mkdir -p ~/.local/share/fonts
-mkdir -p ~/Downloads/fonts
-cd ~/Downloads/fonts
+mkdir -p ~/tmp/fonts
+cd ~/tmp/fonts
 wget "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold/complete/Iosevka%20Term%20Bold%20Nerd%20Font%20Complete.ttf" -O Iosevka_Term_Bold_Nerd_Font_Complete.ttf
 #wget "https://github.com/stark/siji/raw/master/pcf/siji.pcf" -O siji.pcf
 wget "https://downloads.sourceforge.net/project/termsyn/termsyn-1.8.7.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftermsyn%2Ffiles%2Ftermsyn-1.8.7.tar.gz%2Fdownload&ts=1561132280" -O termsyn-1.8.7.tar.gz
@@ -359,8 +387,21 @@ fc-cache -v
 #####################################
 
 
-[ -d "$HOME/.config/rofi" ] || mkdir -p "$HOME/.config/rofi"
-[ -d "$HOME/.config/polybar" ] || mkdir -p "$HOME/.config/polybar"
+cd $orgpwd
+
+cp ../settings/.config/openbox/autostart ~/.config/openbox/
+
+cp ../settings/.config/plank/dock1/launchers/* ~/.config/plank/dock1/launchers/
+cat ../settings/dconf/plank.dconf | dconf load /net/launchpad/plank/docks/dock1/
+
+cp ../settings/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/
+
+cp ../settings/.config/termite/config ~/.config/termite/
 
 cp ../settings/.config/rofi/* $HOME/.config/rofi
 cp ../settings/.config/polybar/* $HOME/.config/polybar
+
+
+echo "################################################################"
+echo "###   All done, please reboot"
+echo "################################################################"
