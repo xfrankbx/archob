@@ -312,6 +312,7 @@ sudo systemctl enable NetworkManager.service
 sudo systemctl enable lightdm.service
 
 
+[ -d "$HOME/bin" ] || mkdir -p "$HOME/bin"
 [ -d "$HOME/.icons" ] || mkdir -p "$HOME/.icons"
 [ -d "$HOME/.local/share/fonts" ] || mkdir -p "$HOME/.local/share/fonts"
 [ -d "$HOME/.local/share/plank/themes" ] || mkdir -p "$HOME/.local/share/plank/themes"
@@ -388,6 +389,8 @@ fc-cache -v
 
 
 cd $orgpwd
+
+cp ../settings/bin/* ~/bin
 
 cp ../settings/.config/openbox/autostart ~/.config/openbox/
 
