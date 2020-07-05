@@ -266,7 +266,7 @@ urxvt-resize-font-git
 noto-fonts
 ttf-roboto
 aur/siji-git
-aur/ttf-material-design-icons-webfont
+#aur/ttf-material-design-icons-webfont #Fails to install
 community/powerline-fonts
 community/ttf-inconsolata
 extra/ttf-dejavu
