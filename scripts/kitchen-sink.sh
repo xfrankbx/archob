@@ -165,7 +165,7 @@ baobab
 bleachbit
 catfish
 curl
-git
+#git
 sysstat
 wget
 
@@ -194,7 +194,7 @@ nemo
 nemo-share
 nemo-fileroller
 exo
-gsimplecal
+#gsimplecal
 lightdm
 lightdm-gtk-greeter
 notify-osd
@@ -203,7 +203,7 @@ obconf
 openbox
 #compton
 xcompmgr
-dmenu
+#dmenu
 feh
 gmrun
 #lxappearance-obconf
@@ -214,7 +214,7 @@ obkey-git
 #nitrogen
 obmenu-generator
 #openbox-arc-git
-lxinput
+#lxinput
 openbox-themes
 playerctl
 #tint2
@@ -326,11 +326,10 @@ sudo systemctl enable lightdm.service
 
 ### Icons/Themes
 [ -d /tmp/sardi ] && rm -rf /tmp/sardi
-wget -O /tmp/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
 mkdir /tmp/sardi
+wget -O /tmp/sardi/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
 cd ~/.icons
-unzip /tmp/sardi.zip
-rm /tmp/sardi.zip
+unzip /tmp/sardi/sardi.zip
 [ -d /tmp/sardi ] && rm -rf /tmp/sardi
 
 [ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
@@ -355,37 +354,15 @@ cp -r /tmp/Plank-Themes/* ~/.local/share/plank/themes/
 ##########################################################################################
 
 
-#mkdir -p ~/tmp/fonts
-#cd ~/tmp/fonts
-#wget "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold/complete/Iosevka%20Term%20Bold%20Nerd%20Font%20Complete.ttf" -O Iosevka_Term_Bold_Nerd_Font_Complete.ttf
-##wget "https://github.com/stark/siji/raw/master/pcf/siji.pcf" -O siji.pcf
-#wget "https://downloads.sourceforge.net/project/termsyn/termsyn-1.8.7.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftermsyn%2Ffiles%2Ftermsyn-1.8.7.tar.gz%2Fdownload&ts=1561132280" -O termsyn-1.8.7.tar.gz
-#wget http://unifoundry.com/pub/unifont/unifont-12.1.02/font-builds/unifont-12.1.02.ttf -O unifont-12.1.02.ttf
-#wget http://dl.dafont.com/dl/?f=pizzadude_bullets -O pizzadude_bullets.zip
-#wget http://dl.dafont.com/dl/?f=openlogos -O openlogos.zip
-#wget https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip -O Hack-v3.003-ttf.zip
-
-#tar -zxf termsyn-1.8.7.tar.gz
-#unzip Hack-v3.003-ttf.zip
-#unzip openlogos.zip
-#unzip pizzadude_bullets.zip
-#chown frank.frank * -R
-##mv siji.pcf ~/.local/share/fonts/
-#mv Iosevka_Term_Bold_Nerd_Font_Complete.ttf ~/.local/share/fonts/
-#mv termsyn-1.8.7/*.pcf termsyn-1.8.7/*.psfu ~/.local/share/fonts/
-#mv *.ttf ~/.local/share/fonts/
-#mv ttf/Hack* ~/.local/share/fonts/
-#rmdir ttf
-#rm -f pizzadudedotdk.txt
-#rm -rf termsyn-1.8.7
-#fc-cache -v
-
-cd /tmp
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Hack.zip -o /tmp/Hack.zip
+[ -d /tmp/Hack ] && rm -rf /tmp/Hack
+mkdir /tmp/Hack
+cd /tmp/Hack
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Hack.zip -o /tmp/Hack/Hack.zip
 unzip Hack.zip
 mv "Hack Regular Nerd Font Complete Mono.ttf" ~/.local/share/fonts
 mv "Hack Regular Nerd Font Complete.ttf" ~/.local/share/fonts
-rm -f Hack*
+[ -d /tmp/Hack ] && rm -rf /tmp/Hack
+cd
 fc-cache -vf
 
 #####################################
