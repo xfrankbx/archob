@@ -29,11 +29,15 @@ type="$dev[TYPE]"
 
 case ${!type} in
   ethernet)
-    typeicon=" "
+    typeicon=""
+    ;;
+  wifi)
+    typeicon=""
     ;;
 esac
 
-echo "$typeicon    ${!ip4}"
+echo "%{T5}$typeicon%{T1} ${!ip4}%{T-}"
+#echo "${!ip4}"
 
 
 exit
