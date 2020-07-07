@@ -180,7 +180,7 @@ python3
 
 
 *Xorg-Misc
-gnome-font-viewer
+#gnome-font-viewer
 #galculator
 #gnome-disk-utility
 #gnome-system-monitor
@@ -256,21 +256,21 @@ gksu
 
 
 *Fonts-Themes-icons-cursors
-awesome-terminal-fonts
-adobe-source-sans-pro-fonts
-community/terminus-font
-community/ttf-ubuntu-font-family
-font-manager-git
-ttf-ms-fonts
-urxvt-resize-font-git
-noto-fonts
-ttf-roboto
-aur/siji-git
+#awesome-terminal-fonts
+#adobe-source-sans-pro-fonts
+#community/terminus-font
+#community/ttf-ubuntu-font-family
+#ttf-ms-fonts
+#urxvt-resize-font-git
+#noto-fonts
+#ttf-roboto
+#font-manager-git
+#aur/siji-git
 #aur/ttf-material-design-icons-webfont #Fails to install
-community/powerline-fonts
-community/ttf-inconsolata
-extra/ttf-dejavu
-ttf-font-awesome
+#community/powerline-fonts
+#community/ttf-inconsolata
+#extra/ttf-dejavu
+#ttf-font-awesome
 breeze-snow-cursor-theme
 
 )
@@ -324,11 +324,7 @@ sudo systemctl enable lightdm.service
 [ -d "$HOME/.config/polybar" ] || mkdir -p "$HOME/.config/polybar"
 
 
-### Icons/Fonts/Themes
-
-
-# if there is no hidden folder then make one
-
+### Icons/Themes
 [ -d /tmp/sardi ] && rm -rf /tmp/sardi
 wget -O /tmp/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
 mkdir /tmp/sardi
