@@ -224,7 +224,7 @@ xfce4-settings
 xfconf
 oblogout
 obmenu
-
+xorgxrdp-git
 
 *zsh
 zsh
@@ -244,7 +244,7 @@ polkit-gnome
 #sane
 #simple-scan
 #simplescreenrecorder
-thunar
+#thunar
 tumbler
 unclutter
 rofi-git
@@ -271,7 +271,7 @@ gksu
 #community/ttf-inconsolata
 #extra/ttf-dejavu
 #ttf-font-awesome
-breeze-snow-cursor-theme
+#breeze-snow-cursor-theme
 
 )
 
@@ -314,6 +314,7 @@ sudo systemctl enable lightdm.service
 
 [ -d "$HOME/bin" ] || mkdir -p "$HOME/bin"
 [ -d "$HOME/.icons" ] || mkdir -p "$HOME/.icons"
+[ -d "$HOME/.themes" ] || mkdir -p "$HOME/.themes"
 [ -d "$HOME/.local/share/fonts" ] || mkdir -p "$HOME/.local/share/fonts"
 [ -d "$HOME/.local/share/plank/themes" ] || mkdir -p "$HOME/.local/share/plank/themes"
 [ -d "$HOME/.config/openbox" ] || mkdir -p "$HOME/.config/openbox"
@@ -322,27 +323,28 @@ sudo systemctl enable lightdm.service
 [ -d "$HOME/.config/termite" ] || mkdir -p "$HOME/.config/termite"
 [ -d "$HOME/.config/rofi" ] || mkdir -p "$HOME/.config/rofi"
 [ -d "$HOME/.config/polybar" ] || mkdir -p "$HOME/.config/polybar"
+[ -d "$HOME/.local/wallpaper" ] || mkdir -p "$HOME/.local/wallpaper"
 
 
 ### Icons/Themes
-[ -d /tmp/sardi ] && rm -rf /tmp/sardi
-mkdir /tmp/sardi
-wget -O /tmp/sardi/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
-cd ~/.icons
-unzip /tmp/sardi/sardi.zip
-[ -d /tmp/sardi ] && rm -rf /tmp/sardi
+#[ -d /tmp/sardi ] && rm -rf /tmp/sardi
+#mkdir /tmp/sardi
+#wget -O /tmp/sardi/sardi.zip "https://sourceforge.net/projects/sardi/files/latest/download?source=files"
+#cd ~/.icons
+#unzip /tmp/sardi/sardi.zip
+#[ -d /tmp/sardi ] && rm -rf /tmp/sardi
 
-[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
-git clone https://github.com/erikdubois/Sardi-Extra /tmp/Sardi-Extra
-find /tmp/Sardi-Extra -maxdepth 1 -type f -exec rm -rf '{}' \;
-cp -rf /tmp/Sardi-Extra/* ~/.icons/
-[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
+#[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
+#git clone https://github.com/erikdubois/Sardi-Extra /tmp/Sardi-Extra
+#find /tmp/Sardi-Extra -maxdepth 1 -type f -exec rm -rf '{}' \;
+#cp -rf /tmp/Sardi-Extra/* ~/.icons/
+#[ -d /tmp/Sardi-Extra ] && rm -rf /tmp/Sardi-Extra
 
-[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
-git clone https://github.com/erikdubois/Surfn /tmp/Surfn
-find /tmp/Surfn -maxdepth 1 -type f -exec rm -rf '{}' \;
-cp -rf /tmp/Surfn/* ~/.icons/
-[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
+#[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
+#git clone https://github.com/erikdubois/Surfn /tmp/Surfn
+#find /tmp/Surfn -maxdepth 1 -type f -exec rm -rf '{}' \;
+#cp -rf /tmp/Surfn/* ~/.icons/
+#[ -d /tmp/Surfn ] && rm -rf /tmp/Surfn
 
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 git clone https://github.com/erikdubois/Plank-Themes /tmp/Plank-Themes
@@ -350,14 +352,12 @@ find /tmp/Plank-Themes -maxdepth 1 -type f -exec rm -rf '{}' \;
 cp -r /tmp/Plank-Themes/* ~/.local/share/plank/themes/
 [ -d /tmp/Plank-Themes ] && rm -rf /tmp/Plank-Themes
 
-
 ##########################################################################################
-
 
 [ -d /tmp/Hack ] && rm -rf /tmp/Hack
 mkdir /tmp/Hack
 cd /tmp/Hack
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Hack.zip -o /tmp/Hack/Hack.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Hack.zip -O /tmp/Hack/Hack.zip
 unzip Hack.zip
 mv "Hack Regular Nerd Font Complete Mono.ttf" ~/.local/share/fonts
 mv "Hack Regular Nerd Font Complete.ttf" ~/.local/share/fonts
@@ -367,12 +367,11 @@ fc-cache -vf
 
 #####################################
 
-
 cd $orgpwd
 
 cp ../settings/bin/* ~/bin
 
-cp ../settings/.config/openbox/autostart ~/.config/openbox/
+cp ../settings/.config/openbox/* ~/.config/openbox/
 
 cp ../settings/.config/plank/dock1/launchers/* ~/.config/plank/dock1/launchers/
 cat ../settings/dconf/plank.dconf | dconf load /net/launchpad/plank/docks/dock1/
@@ -384,6 +383,12 @@ cp ../settings/.config/termite/config ~/.config/termite/
 cp ../settings/.config/rofi/* $HOME/.config/rofi
 cp ../settings/.config/polybar/* $HOME/.config/polybar
 
+cp ../wallpaper/* ~/.local/wallpaper/
+
+cd ~/.themes
+ls -l $orgpwd/../themes/Abyss/gtk3/*.zip | awk '{print $9}' | xargs -i unzip {}
+cd ~/.icons
+ls -l $orgpwd/../themes/Abyss/icons/*.zip | awk '{print $9}' | xargs -i unzip {}
 
 echo "################################################################"
 echo "###   All done, please reboot"

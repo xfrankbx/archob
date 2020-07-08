@@ -1,12 +1,15 @@
 configuration {
 /*	font: "Iosevka Term 12";*/
-	font: "Monospace 10";
+/*	font: "Monospace 10"; */
+	font: "DejaVu Sans 9";
 	bw: 1;
 /*	location: 3; */
 	show-icons: false;
 	hide-scrollbar: true;
-	color-window: "#181818, #c3314f, #181818";
-	color-normal: "#181818, #ffffff, #181818, #7f1e31, #ffffff";
+/*	color-window: "#181818, #c3314f, #181818"; */
+/*	color-normal: "#181818, #ffffff, #181818, #7f1e31, #ffffff"; */
+	color-window: "#181818, #0B98C6, #181818";
+	color-normal: "#181818, #a6a6a6, #181818, #0B98C6, #ffffff";
 	fullscreen: false;
 /*	width: 8; */
 /*	lines: 5; */

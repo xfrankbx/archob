@@ -23,14 +23,14 @@ case "$BLOCK_BUTTON" in
   1|2|3)
 #export TERM=xterm
   cal $month $year | cat -v | sed -e 's/_^H//g' \
-    | sed -e "s|${today} |<span background=\"#7f1e31\">${today} </span>|" \
+    | sed -e "s|${today}|<span background=\"#0B98C6\" foreground=\"#ffffff\">${today} </span>|" \
     | tail -n +2 | head -n +6 \
     | rofi \
       -dmenu \
       -markup-rows \
       -theme mytheme \
       -location 3 \
-      -width 13 \
+      -width 11 \
       -lines 6 \
       -yoffset 20 \
       -xoffset -45 \
