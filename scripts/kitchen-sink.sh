@@ -311,6 +311,12 @@ echo "################################################################"
 sudo systemctl enable vnstat
 sudo systemctl enable NetworkManager.service
 sudo systemctl enable lightdm.service
+sudo systemctl enable xrdp-sesman.service
+sudo systemctl enable xrdp.service
+
+
+echo "allowed_users=anybody" | sudo tee -a /etc/X11/Xwrapper.config
+echo "openbox-session" | tee -a ~/.xinitrc
 
 
 [ -d "$HOME/bin" ] || mkdir -p "$HOME/bin"
