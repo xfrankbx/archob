@@ -8,7 +8,7 @@ mkswap /dev/sda2;
 mount /dev/sda3 /mnt
 swapon /dev/sda2
 
-mkdir /mnt/boot/EFI
+mkdir -p /mnt/boot/EFI
 mount /dev/sda1 /mnt/boot/EFI
 
 echo y | pacman -S archlinux-keyring
