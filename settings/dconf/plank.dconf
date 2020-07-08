@@ -2,7 +2,7 @@
 alignment='center'
 auto-pinning=true
 current-workspace-only=true
-dock-items=['firefox.dockitem', 'termite.dockitem', 'thunar.dockitem', 'nemo.dockitem', 'settings.dockitem']
+dock-items=['termite.dockitem', 'firefox.dockitem', 'thunar.dockitem', 'nemo.dockitem', 'settings.dockitem']
 hide-delay=0
 hide-mode='intelligent'
 icon-size=34

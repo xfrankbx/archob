@@ -226,6 +226,7 @@ oblogout
 obmenu
 xorgxrdp-git
 
+
 *zsh
 zsh
 zsh-completions

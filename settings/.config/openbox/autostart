@@ -15,3 +15,5 @@ xcompmgr -cfns &
 (plank) &
 ~/.config/polybar/polybar.sh &
 
+feh --bg-fill ~/.local/wallpaper/photo-1559825477-6f38d6332bb6.jpg &
+
