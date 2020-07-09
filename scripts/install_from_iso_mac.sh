@@ -38,4 +38,4 @@ echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' fr
 ) | arch-chroot /mnt
 
 echo "frank   ALL=(ALL:ALL) NOPASSWD:ALL" > /mnt/etc/sudoers.d/frank
-umount /mnt/boot /mnt
+umount /mnt/boot/EFI /mnt
