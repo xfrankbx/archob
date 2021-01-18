@@ -1,38 +1,32 @@
 #!/usr/bin/env bash
 
-Options="Logout\n\
+Options="Lock\n\
+Logout\n\
+Standby\n\
+Hibernate\n\
 Restart\n\
 Poweroff"
-#Standby\n\
-#Suspend\n\
 
 picked=$(echo -e $Options | rofi \
   -dmenu \
   -theme mytheme \
   -location 3 \
   -width 5 \
-  -lines 3 \
+  -lines 6 \
   -yoffset 20 \
   -xoffset -2 \
   -p "Action")
 
-if [ "$picked" == "Logout" ]; then
-  echo "logout selected"
+if [ "$picked" == "Lock" ]; then
+  ~/bin/lock.sh
+elif [ "$picked" == "Logout" ]; then
   openbox --exit
-  exit 0
+elif [ "$picked" == "Standby" ]; then
+  systemctl suspend
+elif [ "$picked" == "Hibernate" ]; then
+  systemctl hibernate
 elif [ "$picked" == "Restart" ]; then
-  echo "restart selected"
   systemctl reboot
-  exit 0
-#elif [ "$picked" == "Standby" ]; then
-#  echo "standby selected"
-#  exit 0
-#elif [ "$picked" == "Suspend" ]; then
-#  echo "suspend selected"
-#  exit 0
 elif [ "$picked" == "Poweroff" ]; then
-  echo "poweroff selected"
   systemctl poweroff
-  exit 0
 fi
-

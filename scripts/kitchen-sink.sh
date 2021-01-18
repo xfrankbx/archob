@@ -226,6 +226,9 @@ oblogout
 obmenu
 xorgxrdp-git
 
+*Lock_Screen
+community/i3lock-color
+
 
 *zsh
 zsh
