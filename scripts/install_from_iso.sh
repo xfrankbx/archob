@@ -96,5 +96,3 @@ echo umount /boot/EFI;
 echo grub-mkconfig -o /boot/grub/grub.cfg
 ) | arch-chroot /mnt
 
-umount /mnt
-telinit 6
