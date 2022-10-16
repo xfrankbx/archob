@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Update Pacman Mirrors
 pacman -Syyy
 
@@ -43,8 +41,6 @@ echo 19;
 echo w;
 ) | sudo fdisk -w always -W always /dev/${Disk}
 
-#partprobe /dev/${Disk}
-
 # Format Disk
 mkfs.fat -F32 /dev/${Disk}1
 mkfs.ext4 /dev/${Disk}3
@@ -58,21 +54,29 @@ swapon /dev/${Disk}2
 echo y | pacman -S archlinux-keyring
 echo y | pacstrap /mnt base linux linux-firmware openssh nano vim networkmanager python3 sudo git bash-completion wget curl grub efibootmgr dosfstools os-prober mtools git fakeroot binutils patch autoconf automake pkg-config gcc make asciidoc
 
+# Generate fstab file
+genfstab -U -p /mnt >> /mnt/etc/fstab
+
+# Set Hostname
 echo "archlinux" > /mnt/etc/hostname
+
+# Set Keymap
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
 
+# Set TimeZone
+ln -sf /mnt/usr/share/zoneinfo/America/New_York /mnt/etc/localtime
+arch-chroot /mnt hwclock --systohc --localtime
+
+# Set Lang
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 echo "LC_COLLATE=C" >> /mnt/etc/locale.conf
 sed -i '/#en_US.UTF-8/s/^#//g' /mnt/etc/locale.gen
-genfstab -U -p /mnt > /mnt/etc/fstab
+sed -i '/#en_US ISO-8859-1/s/^#//g' /mnt/etc/locale.gen
+arch-chroot /mnt locale-gen
 
+# Update Pacman repo, Enable NetworkManager and SSH, Setup Users
 (
-echo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime;
-echo locale-gen;
-echo hwclock --systohc --localtime;
-echo mkdir /boot/grub;
-echo grub-install /dev/vda;
-echo grub-mkconfig -o /boot/grub/grub.cfg;
+echo pacman -Syu;
 echo systemctl enable NetworkManager;
 echo systemctl enable sshd;
 echo groupadd -g 1001 frank;
@@ -81,6 +85,16 @@ echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' ro
 echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' frank;
 ) | arch-chroot /mnt
 
+# Setup sudo for Frank
 echo "frank   ALL=(ALL:ALL) NOPASSWD:ALL" > /mnt/etc/sudoers.d/frank
+
+(
+echo mkdir /boot/EFI;
+echo mount /dev/${Disk}1 /boot/EFI;
+echo grub-install --target=x86_64-efi  --bootloader-id=grub_uefi --recheck;
+echo umount /boot/EFI;
+echo grub-mkconfig -o /boot/grub/grub.cfg
+) | arch-chroot /mnt
+
 umount /mnt
-swapoff /dev/${Disk}2
+telinit 6
