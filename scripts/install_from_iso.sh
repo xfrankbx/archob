@@ -1,44 +1,62 @@
 #!/bin/bash
 
+# Update Pacman Mirrors
+pacman -Syyy
+
+# Define Variables
+Disk="vda"
+
+# Partition disk as EFI
 (
+# Create GPT Label
 echo g;
+
+# Create EFI Partition
 echo n;
 echo 1;
 echo;
-echo +31M;
+echo +300M;
+
+# Create SWAP Partition
 echo n;
 echo 2;
 echo;
-echo +512M;
+echo +2G;
+
+# Create Root partition
 echo n;
 echo 3;
 echo;
-echo +2G;
-echo n;
-echo 4;
 echo;
-echo;
+
+# Change Partition type to EFI
 echo t;
 echo 1;
-echo 4;
+echo 1;
+
+# Change Partition type to SWAP
 echo t;
-echo 3;
+echo 2;
 echo 19;
+
+# Write changes to disk
 echo w;
-) | sudo fdisk -w always -W always /dev/vda
+) | sudo fdisk -w always -W always /dev/${Disk}
 
-partprobe /dev/vda
+#partprobe /dev/${Disk}
 
-mkfs.ext4 /dev/vda2;
-mkfs.ext4 /dev/vda4;
-mkswap /dev/vda3;
+# Format Disk
+mkfs.fat -F32 /dev/${Disk}1
+mkfs.ext4 /dev/${Disk}3
+mkswap /dev/${Disk}2
 
-mount /dev/vda4 /mnt
-mkdir /mnt/boot
-mount /dev/vda2 /mnt/boot
+# Mount Partitions
+mount /dev/${Disk}3 /mnt
+swapon /dev/${Disk}2
 
+# Install software
 echo y | pacman -S archlinux-keyring
-echo y | pacstrap /mnt base base-devel linux openssh nano vim grub os-prober networkmanager sudo git python3
+echo y | pacstrap /mnt base linux linux-firmware openssh nano vim networkmanager python3 sudo git bash-completion wget curl grub efibootmgr dosfstools os-prober mtools git fakeroot binutils patch autoconf automake pkg-config gcc make asciidoc
 
 echo "archlinux" > /mnt/etc/hostname
 echo "KEYMAP=us" > /mnt/etc/vconsole.conf
@@ -57,11 +75,12 @@ echo grub-install /dev/vda;
 echo grub-mkconfig -o /boot/grub/grub.cfg;
 echo systemctl enable NetworkManager;
 echo systemctl enable sshd;
-echo groupadd -g 1000 frank;
-echo useradd -d /home/frank -s /bin/bash -u 1000 -g 1000 -m frank;
+echo groupadd -g 1001 frank;
+echo useradd -d /home/frank -s /bin/bash -u 1001 -g 1001 -m frank;
 echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' root;
 echo usermod -p '$(python -c "import crypt; print(crypt.crypt(\"fda123\"))")' frank;
 ) | arch-chroot /mnt
 
 echo "frank   ALL=(ALL:ALL) NOPASSWD:ALL" > /mnt/etc/sudoers.d/frank
-umount /mnt/boot /mnt
+umount /mnt
+swapoff /dev/${Disk}2
