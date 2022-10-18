@@ -8,6 +8,13 @@ set -e
 orgpwd=`pwd`
 
 echo "################################################################"
+echo "###   Misc Task"
+echo "################################################################"
+
+# Load Termite Key, seen as unknown when Trizen tries to install Termite
+gpg --recv-key 91C559DBE4C9123B
+
+echo "################################################################"
 echo "###   Installing reflector"
 echo "################################################################"
 
